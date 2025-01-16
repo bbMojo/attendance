@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #00c6ff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #008cba;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Attendance Calculator</h1>
+    <div class="input-group">
+      <label for="desiredPercentage">Desired Percentage (%)</label>
+      <input type="number" id="desiredPercentage" placeholder="e.g., 75" />
+    </div>
+    <div class="input-group">
+      <label for="totalClasses">Total Classes</label>
+      <input type="number" id="totalClasses" placeholder="e.g., 100" />
+    </div>
+    <div class="input-group">
+      <label for="attendedClasses">Classes Attended</label>
+      <input type="number" id="attendedClasses" placeholder="e.g., 50" />
+    </div>
+    <button class="btn" onclick="calculateClasses()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    function calculateClasses() {
+      const desiredPercentage = parseFloat(document.getElementById("desiredPercentage").value) / 100;
+      const totalClasses = parseInt(document.getElementById("totalClasses").value, 10);
+      const attendedClasses = parseInt(document.getElementById("attendedClasses").value, 10);
+
+      if (isNaN(desiredPercentage) || isNaN(totalClasses) || isNaN(attendedClasses) || desiredPercentage <= 0 || desiredPercentage >= 1) {
+        document.getElementById("result").innerText = "Please enter valid inputs.";
+        return;
+      }
+
+      const requiredClasses = ((desiredPercentage * totalClasses) - attendedClasses) / (1 - desiredPercentage);
+      
+      if (requiredClasses <= 0) {
+        document.getElementById("result").innerText = "You already meet the desired percentage!";
+      } else {
+        document.getElementById("result").innerText = `You need to attend ${Math.ceil(requiredClasses)} more classes.`;
+      }
+    }
+  </script>
+</body>
+  </html>
+  
